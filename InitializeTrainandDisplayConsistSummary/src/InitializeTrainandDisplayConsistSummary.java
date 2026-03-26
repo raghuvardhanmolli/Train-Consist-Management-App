@@ -1,39 +1,30 @@
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-public class InitializeTrainandDisplayConsistSummary {
+public class InitializeTrainandDisplayConsistSummary{
 
     public static void main(String[] args) {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create LinkedList to maintain ordered train consist
-        LinkedList<String> trainConsist = new LinkedList<>();
+        // Create LinkedHashSet to maintain order + uniqueness
+        Set<String> trainFormation = new LinkedHashSet<>();
 
-        // Add bogies
-        trainConsist.add("Engine");
-        trainConsist.add("Sleeper");
-        trainConsist.add("AC");
-        trainConsist.add("Cargo");
-        trainConsist.add("Guard");
+        // Adding bogies
+        trainFormation.add("Engine");
+        trainFormation.add("Sleeper");
+        trainFormation.add("Cargo");
+        trainFormation.add("Guard");
 
-        // Display initial consist
-        System.out.println("\nInitial Train Consist:");
-        System.out.println(trainConsist);
+        // Attempt to add duplicate
+        trainFormation.add("Sleeper"); // Duplicate (ignored)
 
-        // Insert Pantry Car at position 2 (index starts from 0)
-        trainConsist.add(2, "Pantry Car");
+        // Display final formation
+        System.out.println("\nFinal Train Formation (Ordered & Unique):");
+        System.out.println(trainFormation);
 
-        System.out.println("\nAfter adding Pantry Car at position 2:");
-        System.out.println(trainConsist);
+        System.out.println("\nTotal bogies: " + trainFormation.size());
 
-        // Remove first and last bogie
-        trainConsist.removeFirst();
-        trainConsist.removeLast();
-
-        // Final consist
-        System.out.println("\nFinal Train Consist after removing first and last bogie:");
-        System.out.println(trainConsist);
-
-        System.out.println("\nTrain consist order maintained successfully.");
+        System.out.println("\nDuplicates are automatically prevented.");
     }
 }
