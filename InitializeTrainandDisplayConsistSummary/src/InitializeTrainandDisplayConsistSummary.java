@@ -1,42 +1,55 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+// Bogie class (Custom Object)
+class Bogie {
+    String name;
+    int capacity;
+
+    // Constructor
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    // Display method
+    public void display() {
+        System.out.println("Bogie: " + name + " | Capacity: " + capacity);
+    }
+}
 
 public class InitializeTrainandDisplayConsistSummary {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        // Creating list of bogies
+        List<Bogie> bogieList = new ArrayList<>();
 
-        // Creating HashMap to store bogie and capacity
-        HashMap<String, Integer> bogieCapacityMap = new HashMap<>();
+        // Adding passenger bogies
+        bogieList.add(new Bogie("Sleeper", 72));
+        bogieList.add(new Bogie("AC Chair", 56));
+        bogieList.add(new Bogie("First Class", 40));
 
-        System.out.println("=== Train Consist Management System ===");
-        System.out.print("Enter number of bogies to add: ");
-        int n = scanner.nextInt();
-        scanner.nextLine(); // consume newline
-
-        // Input from user
-        for (int i = 0; i < n; i++) {
-            System.out.print("Enter Bogie Name: ");
-            String bogieName = scanner.nextLine();
-
-            System.out.print("Enter Capacity: ");
-            int capacity = scanner.nextInt();
-            scanner.nextLine(); // consume newline
-
-            // Insert into HashMap
-            bogieCapacityMap.put(bogieName, capacity);
+        System.out.println("=== Before Sorting ===");
+        for (Bogie b : bogieList) {
+            b.display();
         }
 
-        // Displaying bogie-capacity mapping
-        System.out.println("\n=== Bogie Capacity Details ===");
+        // Sorting using Comparator (by capacity)
+        bogieList.sort(Comparator.comparingInt(b -> b.capacity));
 
-        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
-            System.out.println("Bogie: " + entry.getKey() +
-                    " | Capacity: " + entry.getValue());
+        System.out.println("\n=== After Sorting (Ascending Capacity) ===");
+        for (Bogie b : bogieList) {
+            b.display();
         }
 
-        scanner.close();
+        // Optional: Descending order
+        bogieList.sort(Comparator.comparingInt((Bogie b) -> b.capacity).reversed());
+
+        System.out.println("\n=== After Sorting (Descending Capacity) ===");
+        for (Bogie b : bogieList) {
+            b.display();
+        }
     }
 }
