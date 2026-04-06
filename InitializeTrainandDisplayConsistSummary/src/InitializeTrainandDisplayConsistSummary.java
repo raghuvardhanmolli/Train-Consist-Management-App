@@ -1,30 +1,42 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
-public class InitializeTrainandDisplayConsistSummary{
+public class InitializeTrainandDisplayConsistSummary {
 
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App ===");
+        Scanner scanner = new Scanner(System.in);
 
-        // Create LinkedHashSet to maintain order + uniqueness
-        Set<String> trainFormation = new LinkedHashSet<>();
+        // Creating HashMap to store bogie and capacity
+        HashMap<String, Integer> bogieCapacityMap = new HashMap<>();
 
-        // Adding bogies
-        trainFormation.add("Engine");
-        trainFormation.add("Sleeper");
-        trainFormation.add("Cargo");
-        trainFormation.add("Guard");
+        System.out.println("=== Train Consist Management System ===");
+        System.out.print("Enter number of bogies to add: ");
+        int n = scanner.nextInt();
+        scanner.nextLine(); // consume newline
 
-        // Attempt to add duplicate
-        trainFormation.add("Sleeper"); // Duplicate (ignored)
+        // Input from user
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter Bogie Name: ");
+            String bogieName = scanner.nextLine();
 
-        // Display final formation
-        System.out.println("\nFinal Train Formation (Ordered & Unique):");
-        System.out.println(trainFormation);
+            System.out.print("Enter Capacity: ");
+            int capacity = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
-        System.out.println("\nTotal bogies: " + trainFormation.size());
+            // Insert into HashMap
+            bogieCapacityMap.put(bogieName, capacity);
+        }
 
-        System.out.println("\nDuplicates are automatically prevented.");
+        // Displaying bogie-capacity mapping
+        System.out.println("\n=== Bogie Capacity Details ===");
+
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            System.out.println("Bogie: " + entry.getKey() +
+                    " | Capacity: " + entry.getValue());
+        }
+
+        scanner.close();
     }
 }
