@@ -1,19 +1,17 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-// Bogie class (Custom Object)
+// Reusing Bogie class from UC7
 class Bogie {
     String name;
     int capacity;
 
-    // Constructor
     Bogie(String name, int capacity) {
         this.name = name;
         this.capacity = capacity;
     }
 
-    // Display method
     public void display() {
         System.out.println("Bogie: " + name + " | Capacity: " + capacity);
     }
@@ -23,33 +21,25 @@ public class InitializeTrainandDisplayConsistSummary {
 
     public static void main(String[] args) {
 
-        // Creating list of bogies
+        // Original bogie list
         List<Bogie> bogieList = new ArrayList<>();
-
-        // Adding passenger bogies
         bogieList.add(new Bogie("Sleeper", 72));
         bogieList.add(new Bogie("AC Chair", 56));
         bogieList.add(new Bogie("First Class", 40));
 
-        System.out.println("=== Before Sorting ===");
-        for (Bogie b : bogieList) {
-            b.display();
-        }
+        System.out.println("=== Original Bogie List ===");
+        bogieList.forEach(Bogie::display);
 
-        // Sorting using Comparator (by capacity)
-        bogieList.sort(Comparator.comparingInt(b -> b.capacity));
+        // Stream filtering: capacity > 60
+        List<Bogie> filteredBogies = bogieList.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
 
-        System.out.println("\n=== After Sorting (Ascending Capacity) ===");
-        for (Bogie b : bogieList) {
-            b.display();
-        }
+        System.out.println("\n=== Filtered Bogies (Capacity > 60) ===");
+        filteredBogies.forEach(Bogie::display);
 
-        // Optional: Descending order
-        bogieList.sort(Comparator.comparingInt((Bogie b) -> b.capacity).reversed());
-
-        System.out.println("\n=== After Sorting (Descending Capacity) ===");
-        for (Bogie b : bogieList) {
-            b.display();
-        }
+        // Verify original list unchanged
+        System.out.println("\n=== Original List After Filtering (Unchanged) ===");
+        bogieList.forEach(Bogie::display);
     }
 }
